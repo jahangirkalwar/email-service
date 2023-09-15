@@ -106,5 +106,23 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public ApiResponse verifyOtp(String email, String otp) {
+
+        Otp dbOtp = otpRepository.findByEmail(email);
+        if(LocalDateTime.now().isAfter(dbOtp.getOtpGenerationTime())){
+            if (dbOtp.getOtp().equals(otp)){
+                return ApiResponse.builder()
+                        .responseCode("000")
+                        .responseMessage("otp verified")
+                        .build();
+            }
+        }
+        return ApiResponse.builder()
+                .responseCode("004")
+                .responseMessage("not verified")
+                .build();
+    }
+
 
 }

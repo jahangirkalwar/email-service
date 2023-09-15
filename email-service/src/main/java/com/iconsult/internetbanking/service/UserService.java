@@ -8,4 +8,6 @@ public interface UserService {
     ApiResponse register (UserDto request);
 
     ApiResponse sendOtp(String email);
+
+    ApiResponse verifyOtp(String email, String otp);
 }
